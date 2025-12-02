@@ -8,7 +8,7 @@ st.set_page_config(page_title="Generador Micro-SaaS", page_icon="🚀")
 st.title('🚀 Generador de Emails con IA')
 
 # Recuperar la clave desde los Secretos de Streamlit Cloud
-api_key = st.secrets["GEMINI_API_KEY"]
+api_key = "AIzaSyACFXvIogwxvHETsvf0ub9XHXdtin_3W50"
 
 if not api_key:
     st.error("No se encontró la API Key. Configúrala en los secretos.")
