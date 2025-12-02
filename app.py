@@ -1,43 +1,44 @@
 import streamlit as st
 import google.generativeai as genai
 
-# Título de la App
-st.title('🕵️ Detector de Modelos de Gemini')
+# Configuración de la página
+st.set_page_config(page_title="Generador Micro-SaaS", page_icon="🚀")
+st.title('🚀 Generador de Emails de Venta')
 
-# --- PON TU CLAVE AQUÍ ABAJO ---
-api_key = "AIzaSyDvsWVKPUMFXRDDIbtLQIr9krB5nrs9EtQ"  # <--- BORRA ESTO Y PEGA TU CLAVE REAL ENTRE LAS COMILLAS
+# --- TU CLAVE API ---
+# (Recuerda: al ser público en GitHub, úsalo para probar y luego bórralo si quieres privacidad)
+api_key = "TU_CLAVE_AIza_AQUI" 
 
-if not api_key or api_key == "AIzaSy...":
-    st.error("¡Ojo! Te falta poner tu API Key real en el código.")
+if not api_key or api_key == "AIzaSyDvsWVKPUMFXRDDIbtLQIr9krB5nrs9EtQ":
+    st.error("⚠️ Por favor, edita el código y pon tu API Key real donde dice 'TU_CLAVE_AIza_AQUI'.")
 else:
-    # Configuramos la conexión
-    genai.configure(api_key=api_key)
-    
-    st.write("Conectando con Google para ver qué modelos tienes disponibles...")
-    
     try:
-        # Preguntamos a Google qué modelos existen
-        modelos_disponibles = []
-        for m in genai.list_models():
-            # Buscamos solo los que sirven para generar texto
-            if 'generateContent' in m.supported_generation_methods:
-                modelos_disponibles.append(m.name)
-        
-        # Mostramos el resultado
-        if modelos_disponibles:
-            st.success(f"¡Éxito! Tienes acceso a {len(modelos_disponibles)} modelos:")
-            st.code(modelos_disponibles) # Muestra la lista para que puedas copiar el nombre
-            
-            # Prueba automática con el primer modelo de la lista
-            modelo_a_probar = modelos_disponibles[0].replace("models/", "")
-            st.info(f"Probando conexión con: {modelo_a_probar}...")
-            
-            model = genai.GenerativeModel(modelo_a_probar)
-            response = model.generate_content("Hola, ¿me escuchas?")
-            st.write("Respuesta de la IA:", response.text)
-            
-        else:
-            st.warning("Tu clave funciona, pero Google dice que no tienes modelos disponibles. ¿Quizás es una cuenta nueva sin activar?")
-            
+        # 1. Configuramos la conexión
+        genai.configure(api_key=api_key)
+
+        # 2. Creamos el campo para el usuario
+        producto = st.text_area("Describe tu producto o servicio:", height=150, placeholder="Ejemplo: Un curso de cocina vegana para principiantes...")
+
+        # 3. El Botón Mágico
+        if st.button('✨ Generar Email'):
+            if not producto:
+                st.warning("Por favor escribe algo sobre tu producto.")
+            else:
+                with st.spinner('La IA está escribiendo tu email...'):
+                    # --- AQUÍ ESTÁ EL CAMBIO CLAVE ---
+                    # Usamos 'gemini-2.0-flash' que sí está en tu lista y es rápido
+                    model = genai.GenerativeModel('gemini-2.0-flash')
+                    
+                    prompt = f"""
+                    Actúa como un experto copywriter de ventas.
+                    Escribe un email frío, corto y persuasivo para vender este producto: {producto}.
+                    Usa un asunto llamativo. El tono debe ser profesional pero cercano.
+                    """
+                    
+                    response = model.generate_content(prompt)
+                    
+                    st.success("¡Email Generado!")
+                    st.markdown(response.text)
+
     except Exception as e:
-        st.error(f"Error de conexión: {e}")
+        st.error(f"Ocurrió un error: {e}")
