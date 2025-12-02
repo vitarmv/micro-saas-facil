@@ -7,9 +7,9 @@ st.title('🚀 Generador de Emails de Venta')
 
 # --- TU CLAVE API ---
 # (Recuerda: al ser público en GitHub, úsalo para probar y luego bórralo si quieres privacidad)
-api_key = 'AIzaSyDvsWVKPUMFXRDDIbtLQIr9krB5nrs9EtQ'
+api_key = "AIzaSyDvsWVKPUMFXRDDIbtLQIr9krB5nrs9EtQ" 
 
-if not api_key or api_key == 'AIzaSyDvsWVKPUMFXRDDIbtLQIr9krB5nrs9EtQ':
+if not api_key or api_key == "TU_CLAVE_AIza_AQUI":
     st.error("⚠️ Por favor, edita el código y pon tu API Key real donde dice 'TU_CLAVE_AIza_AQUI'.")
 else:
     try:
