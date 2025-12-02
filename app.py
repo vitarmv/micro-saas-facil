@@ -25,7 +25,7 @@ else:
         else:
             with st.spinner('La IA está escribiendo...'):
                 try:
-                    model = genai.GenerativeModel('gemini-pro')
+                    model = genai.GenerativeModel('gemini-1.5-flash')
                     prompt = f"Actúa como un experto en copywriter. Escribe un email de ventas corto y persuasivo para este producto: {producto}"
                     response = model.generate_content(prompt)
                     st.success("¡Email Generado!")
