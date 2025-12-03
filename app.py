@@ -27,7 +27,7 @@ else:
                 with st.spinner('La IA está escribiendo tu email...'):
                     # --- AQUÍ ESTÁ EL CAMBIO CLAVE ---
                     # Usamos 'gemini-2.0-flash' que sí está en tu lista y es rápido
-                    model = genai.GenerativeModel('gemini-2.0-flash')
+                    model = genai.GenerativeModel('gemini-2.5-flash')
                     
                     prompt = f"""
                     Actúa como un experto copywriter de ventas.
